@@ -2,12 +2,16 @@ package main
 
 import (
 	"fmt"
-	"mychatapp/gui"
-	"mychatapp/p2p"
+	"time"
+
+	"github.com/ElysicConstructor/onion-spot/p2p"
 )
 
 func main() {
-	fmt.Println("Starte MyChatApp...")
-	go p2p.StartServer(":6666") // P2P Server starten
-	gui.StartGUI()              // GUI starten
+	// Name / Raum
+	name := fmt.Sprintf("peer-%d", time.Now().Unix()%10000)
+	room := "default"
+
+	// Automatischer Start: überprüft, ob ein Introducer im Netzwerk läuft
+	p2p.AutoStart(name, room)
 }
